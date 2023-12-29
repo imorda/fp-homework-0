@@ -13,19 +13,24 @@ import Numeric.Natural
 type Nat a = (a -> a) -> a -> a
 
 nz :: Nat a
-nz = undefined
+nz _ a = a
 
+-- ((a ->a) -> a -> a) -> (a -> a) -> a -> a
 ns :: Nat a -> Nat a
-ns = undefined
+ns x f a = x f $ f a
 
+-- ((a ->a) -> a -> a) -> ((a -> a) -> a -> a) -> (a -> a) -> a -> a
 nplus :: Nat a -> Nat a -> Nat a
-nplus = undefined
+nplus l r f a = l f $ r f a
 
 nmult :: Nat a -> Nat a -> Nat a
-nmult = undefined
+nmult l r f = r (l f)
 
+-- x -> ((a -> a) -> a -> a)
 nFromNatural :: Natural -> Nat a
-nFromNatural = undefined
+nFromNatural 0 = nz
+nFromNatural n = ns $ nFromNatural $ n - 1
 
+-- ((a -> a) -> a -> a) -> x
 nToNum :: Num a => Nat a -> a
-nToNum = undefined
+nToNum a = a (+ 1) 0

@@ -7,17 +7,17 @@ module HW0.T6
   , c_whnf
   ) where
 
-import HW0.T1 (distrib)
 import Data.Char (isSpace)
+import HW0.T1 (distrib)
 
 a = distrib (Left ("AB" ++ "CD" ++ "EF"))
 
-a_whnf = undefined
+a_whnf = (Left ("AB" ++ "CD" ++ "EF"), Left ("AB" ++ "CD" ++ "EF"))
 
 b = map isSpace "Hello, World"
 
-b_whnf = undefined
+b_whnf = isSpace 'H': map isSpace "ello, World"
 
 c = if 1 > 0 || error "X" then "Y" else "Z"
 
-c_whnf = undefined
+c_whnf = 'Y': []
